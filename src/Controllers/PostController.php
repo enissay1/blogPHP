@@ -14,44 +14,48 @@ class PostController
   }
   public function addPost()
   {
-    if (isset($_POST["title"]) && !empty($_POST["title"])) {
-      $title = $this->postmanager->find($_POST["title"]);
-      if ($title == false) {
-        $this->postmanager->add($_POST["title"],$_POST["createdAt"],$_POST["publishedAt"],$_POST["description"],$_FILES["cover"]["name"],$_POST["id_category"],(int)$_SESSION["id"]);
-        echo 'post  added';
-      }else echo  "<br>this post exist try another";
-    }else echo 'verify fields';
+    if ($_SESSION != []) {
+
+      if (isset($_POST["title"]) && !empty($_POST["title"])) {
+        $title = $this->postmanager->find($_POST["title"]);
+        if ($title == false) {
+          $this->postmanager->add($_POST["title"], $_POST["createdAt"], $_POST["publishedAt"], $_POST["description"], $_FILES["cover"]["name"], $_POST["id_category"], (int)$_SESSION["id"]);
+          echo 'post  added';
+        } else echo  "<br>this post exist try another";
+      } else echo 'verify fields';
+    } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
 
   public function updatePost()
   {
-    if (isset($_POST["title"]) && !empty($_POST["id"])) {
-      $id = $this->postmanager->find($_POST["id"]);
-      //dump($id);die();
-      if ($id == true) {
-        $this->postmanager->update($_POST["id"],$_POST["title"],$_POST["createdAt"],$_POST["publishedAt"],$_POST["description"],$_FILES["cover"]["name"],$_POST["id_category"],$_SESSION["id"]);
-        echo 'Post  updated';
-      }else echo  "<br>this id don t exist try another";
-    }else echo 'verify fields';
+    if ($_SESSION != []) {
+      if (isset($_POST["title"]) && !empty($_POST["id"])) {
+        $id = $this->postmanager->find($_POST["id"]);
+        //dump($id);die();
+        if ($id == true) {
+          $this->postmanager->update($_POST["id"], $_POST["title"], $_POST["createdAt"], $_POST["publishedAt"], $_POST["description"], $_FILES["cover"]["name"], $_POST["id_category"], $_SESSION["id"]);
+          echo 'Post  updated';
+        } else echo  "<br>this id don t exist try another";
+      } else echo 'verify fields';
+    } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
 
   public function deletePost()
   {
-    if (isset($_POST["post"])) {
-      $post = $this->postmanager->find($_POST["post"]);
-      if (is_array($post)) {
-        $this->postmanager->delete($_POST["post"]);
-        echo 'post  deleted';
-      }else echo  "<br>this post don t exist try another";
-    }else echo 'verify fields';
+
+    if ($_SESSION != []) {
+
+      if (isset($_POST["post"])) {
+        $post = $this->postmanager->find($_POST["post"]);
+        if (is_array($post)) {
+          $this->postmanager->delete($_POST["post"]);
+          echo 'post  deleted';
+        } else echo  "<br>this post don t exist try another";
+      } else echo 'verify fields';
+    } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
-
-  
-
-
-
-
 }
+
  
 
 

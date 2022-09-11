@@ -16,7 +16,7 @@ class PostManager
     {
 
         //target 
-        $target_dir = "images/";
+        $target_dir = "images/book/";
         $target_file = $target_dir . basename($_FILES["cover"]["name"]);
 
         $errors = array();
@@ -58,7 +58,7 @@ class PostManager
 
         ////check errors
         if (empty($errors) == true) {
-            move_uploaded_file($file_tmp, "../public/images" . $file_name);
+            move_uploaded_file($file_tmp, "../public/images/book/" . $file_name);
 
             return  true;
         } else return $errors;
@@ -73,7 +73,7 @@ class PostManager
 
                 $basename=basename($_FILES["cover"]["name"]);
                 //ump($basename);die();
-                $path = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public". DIRECTORY_SEPARATOR ."images" . DIRECTORY_SEPARATOR;
+                $path = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public". DIRECTORY_SEPARATOR ."images\book" . DIRECTORY_SEPARATOR;
                 $cover = $path . $basename;
                 //var_dump($cover);die();
                 $sql = "INSERT INTO post SET title=:title,createdAt=:createdAt,publishedAt=:publishedAt,description=:description,cover=:cover,id_category=:id_category,id_user=:id_user";

@@ -1,5 +1,4 @@
 <!-- <h1>home</h1> -->
-
 <div id="carousel" class="carousel slide my-carousel" data-ride="carousel">
 
     <ol class="carousel-indicators">
