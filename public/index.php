@@ -49,8 +49,8 @@ $router->getMap('/post/delete', 'PostController@deletePost', 'deletepost');
 // --------------
 $router->getMap('/comment/post/[i:id]', 'comment/index', 'commentpost');
 $router->getMap('/comment/addpage', 'comment/addpage', 'commentadd');
-$router->getMap('/comment/updatepage', 'comment/updatepage', 'commentupdate');
-$router->getMap('/comment/delete-page', 'comment/deletepage', 'commentdelete');
+$router->getMap('/comment/updatepage/[i:id]', 'comment/updatepage', 'commentupdate');
+$router->getMap('/comment/delete-page/[i:id]', 'comment/deletepage', 'commentdelete');
 
 $router->getMap('/comment/add', 'CommentController@addComment', 'addcomment');
 $router->getMap('/comment/update', 'CommentController@updatecomment', 'updatecomment');

@@ -2,7 +2,7 @@
 use App\Services\Connection;
 $pdo=Connection::getInstance()->getPdo();
 $results=$pdo->query("SELECT * FROM category",PDO::FETCH_ASSOC);
-dump($_SESSION,$_POST);
+//dump($_SESSION,$_POST);
 ?>
 <legend>Formulaire Update Post</legend>
 <form method="post" action="/post/update">

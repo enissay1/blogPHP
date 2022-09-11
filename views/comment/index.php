@@ -1,17 +1,17 @@
-<script> window.onload = function() {
-  // Some 
- document.getElementById("textAreaExample").value="";
-};</script>
+<script>
+    window.onload = function() {
+        // Some 
+        document.getElementById("textAreaExample").value = "";
+    };
+</script>
 <?php
-// use App/Connection;
-// use App/Post;
 
 use App\Services\Connection;
 
 $pdo = Connection::getInstance()->getPdo();
 $query = $pdo->prepare("SELECT * FROM comment WHERE id_post=:id_post");
-$explode=explode("/",$_SERVER['REQUEST_URI']);
-$end=end($explode);
+$explode = explode("/", $_SERVER['REQUEST_URI']);
+$end = end($explode);
 //$end = (int)substr($_SERVER['REQUEST_URI'], -1);
 $query->execute(array("id_post" => $end));
 $results = $query->fetchALL(pdo::FETCH_ASSOC);
@@ -57,6 +57,9 @@ $results = $query->fetchALL(pdo::FETCH_ASSOC);
                                     <p class="mb-0">Share</p>
                                 </a>
                             </div>
+                            <br>
+                            <a href="/comment/updatepage/<?=$value["id"]?>" class="btn btn-success btn-sm">Update comment</a>
+                            <a href="/comment/delete-page/<?=$value["id"]?>" class="btn btn-danger btn-sm">Delete comment</a>
                         </div>
                     <?php } ?>
 
@@ -66,22 +69,19 @@ $results = $query->fetchALL(pdo::FETCH_ASSOC);
                                 <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40" height="40" />
                                 <div class="form-outline w-100">
                                     <input type="text" name="pseudo" placeholder="pseudo" class="input-group-text"><br>
-                                    <input type="hidden" name="id_post" value=<?=$end?>>
+                                    <input type="hidden" name="id_post" value=<?= $end ?>>
                                     <textarea name="comment" class="form-control" id="textAreaExample" rows="4" style="background: #fff;"></textarea>
                                     <label class="form-label" for="textAreaExample">New Comment</label>
                                 </div>
                             </div>
                             <div class="float-end mt-2 pt-1">
-                                <button type="submit" class="btn btn-primary btn-sm" >Post comment</button>
-                                <a href="#" class="btn btn-success btn-sm" >Update comment</a>
-                                <a href="#" class="btn btn-danger btn-sm" >Delete comment</a>
+                                <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
                                 <button type="reset" class="btn btn-outline-primary btn-sm">Cancel</button>
                             </div>
                     </form>
-                </div>  
+                </div>
             </div>
         </div>
     </div>
     </div>
 </section>
-

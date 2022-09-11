@@ -14,34 +14,41 @@ class CommentController
   }
   public function addComment()
   {
-    if (isset($_POST["comment"]) && !empty($_POST["comment"])) {
-      //dump($_POST);die();
-      $this->commentmanager->add($_POST["pseudo"],$_POST["comment"],(int)$_POST["id_post"]);
-      echo 'comment  added successfully <input type="button" value="back to last page" onclick="history.go(-1)">';
-    } else echo 'verify fields';
+    if ($_SESSION != []) {
+
+      if (isset($_POST["comment"]) && !empty($_POST["comment"])) {
+        //dump($_POST);die();
+        $this->commentmanager->add($_POST["pseudo"], $_POST["comment"], (int)$_POST["id_post"]);
+        echo 'comment  added successfully <input type="button" value="back to last page" onclick="history.go(-1)">';
+      } else echo 'verify fields';
+    } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
 
   public function updatecomment()
   {
-    if (isset($_POST["comment"]) && !empty($_POST["id"])) {
-      $id = $this->commentmanager->find($_POST["id"]);
-      //dump($id);die();
-      if ($id == true) {
-        $this->commentmanager->update($_POST["id"],$_POST["pseudo"],$_POST["comment"]);
-        echo 'comment  updated';
-      } else echo  "<br>this id don t exist try another";
-    } else echo 'verify fields';
+    if ($_SESSION != []) {
+      if (isset($_POST["comment"]) && !empty($_POST["id"])) {
+        $id = $this->commentmanager->find($_POST["id"]);
+        //dump($id);die();
+        if ($id == true) {
+          $this->commentmanager->update($_POST["id"], $_POST["pseudo"], $_POST["comment"]);
+          echo 'comment  updated';
+        } else echo  "<br>this id don t exist try another";
+      } else echo 'verify fields';
+    } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
 
   public function deletecomment()
   {
-    if (isset($_POST["id"])) {
-      $comment = $this->commentmanager->find($_POST["id"]);
-      if (is_array($comment)) {
-        $this->commentmanager->delete($_POST["id"]);
-        echo 'comment  deleted';
-      } else echo  "<br>this comment don t exist try another";
-    } else echo 'verify fields';
+    if ($_SESSION != []) {
+      if (isset($_POST["id"])) {
+        $comment = $this->commentmanager->find($_POST["id"]);
+        if (is_array($comment)) {
+          $this->commentmanager->delete($_POST["id"]);
+          echo 'comment  deleted';
+        } else echo  "<br>this comment don t exist try another";
+      } else echo 'verify fields';
+    } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
 }
  

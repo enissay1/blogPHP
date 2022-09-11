@@ -1,10 +1,13 @@
+<?php 
+$explode = explode("/", $_SERVER['REQUEST_URI']);
+$end = end($explode);
+?>
 <legend>Formulaire delete id_comment</legend>
 
 <form method="post" action="/comment/delete">
 
-  <label for="id_comment">id_comment:</label><br>
-  <input type="text" id="id_comment" name="id_comment"><br>
+  <input type="hidden" id="id" name="id" value=<?= $end?>><br><br>
 <!-- id post rec from session -->
 
-  <input type="submit"class="btn btn-primary" value="delete comment">
+  <input type="submit"class="btn btn-danger" value="confirm your delete plz">
 </form>
