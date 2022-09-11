@@ -10,8 +10,9 @@ use App\Services\Connection;
 
 $pdo = Connection::getInstance()->getPdo();
 $query = $pdo->prepare("SELECT * FROM comment WHERE id_post=:id_post");
-$end = (int)substr($_SERVER['REQUEST_URI'], -1);
-
+$explode=explode("/",$_SERVER['REQUEST_URI']);
+$end=end($explode);
+//$end = (int)substr($_SERVER['REQUEST_URI'], -1);
 $query->execute(array("id_post" => $end));
 $results = $query->fetchALL(pdo::FETCH_ASSOC);
 //dump($results);die();
@@ -72,10 +73,12 @@ $results = $query->fetchALL(pdo::FETCH_ASSOC);
                             </div>
                             <div class="float-end mt-2 pt-1">
                                 <button type="submit" class="btn btn-primary btn-sm" >Post comment</button>
+                                <a href="#" class="btn btn-success btn-sm" >Update comment</a>
+                                <a href="#" class="btn btn-danger btn-sm" >Delete comment</a>
                                 <button type="reset" class="btn btn-outline-primary btn-sm">Cancel</button>
                             </div>
                     </form>
-                </div>
+                </div>  
             </div>
         </div>
     </div>

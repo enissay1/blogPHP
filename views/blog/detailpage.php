@@ -39,6 +39,7 @@ $results = $query->fetchAll(pdo::FETCH_ASSOC);
                     <textarea name="comment" id="comment" cols="30" rows="10" placeholder="content" class="bg-gray-200__input"></textarea><br><br>
                     <input type="submit" class="btn btn-primary" value="Add comment">
                 </form>
+                <a href="/comment/post/<?=$end?>">See All Comments</a>
             </div>
 
 
