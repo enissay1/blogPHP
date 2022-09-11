@@ -16,19 +16,19 @@
 
         <div class="carousel-item active">
 
-            <img class="d-block w-100" src="\images\js.jpg" alt="First slide" width="640px" height="460px">
+            <img class="d-block w-100" src="\images\carousel\js.jpg" alt="First slide" width="640px" height="460px">
 
         </div>
 
         <div class="carousel-item">
 
-            <img class="d-block w-100" src="/images/php et mysql.jpg" alt="Second slide" width="640px" height="460px">
+            <img class="d-block w-100" src="/images/carousel/php et mysql.jpg" alt="Second slide" width="640px" height="460px">
 
         </div>
 
         <div class="carousel-item">
 
-            <img class="d-block w-100" src="/images/csshandbook.jpg" alt="Third slide" width="640px" height="460px">
+            <img class="d-block w-100" src="/images/carousel/csshandbook.jpg" alt="Third slide" width="640px" height="460px">
 
         </div>
 
