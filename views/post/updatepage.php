@@ -5,7 +5,7 @@ $results=$pdo->query("SELECT * FROM category",PDO::FETCH_ASSOC);
 //dump($_SESSION,$_POST);
 ?>
 <legend>Formulaire Update Post</legend>
-<form method="post" action="/post/update">
+<form method="post" action="/post/update" enctype="multipart/form-data">
 
 <label for="id">id:</label><br>
   <input type="text" id="id" name="id"><br>
@@ -21,7 +21,7 @@ $results=$pdo->query("SELECT * FROM category",PDO::FETCH_ASSOC);
 
   <label for="description">description:</label><br>
   <input type="text" id="description" name="description"><br><br>
-
+  
   <label for="category">Choose a category:</label>
   <select name="id_category" id="category">
    <?php foreach ($results as  $value) { ?> 
@@ -29,6 +29,8 @@ $results=$pdo->query("SELECT * FROM category",PDO::FETCH_ASSOC);
   <?php }?>
  </select><br>
 
+ <label for="cover">cover:</label><br>
+  <input type="file" id="cover" name="cover"><br><br>
 
   <input type="submit"class="btn btn-primary" value="Update Post">
 </form>

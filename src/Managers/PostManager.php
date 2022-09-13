@@ -24,7 +24,7 @@ class PostManager
         $file_size = $_FILES['cover']['size'];
         $file_tmp = $_FILES['cover']['tmp_name'];
         $file_type = $_FILES['cover']['type'];
-
+      
         // check if is image 
         if (isset($_POST["submit"])) {
 
@@ -43,16 +43,15 @@ class PostManager
         if (in_array($file_ext, $extensions) === false) {
             $errors[] = "extension not allowed, please choose a pdf or jpeg file.";
             $uploadOk = 0;
-
         }
         //check size
         if ($file_size > 2097152) {
             $errors[] = 'File size must be less than 2 MB';
             $uploadOk = 0;
         }
-        //check exist
+        //check name exist
         if (file_exists($target_file)) {
-            echo "Sorry, file already exists.";
+            $errors[] = "Sorry, file already exists.";
             $uploadOk = 0;
         }
 
@@ -66,14 +65,15 @@ class PostManager
     public function add($title, $createdAt, $publishedAt, $description, $basename, $id_category, $id_user)
     {
         if ($this->uploadCover() == true) {
+            //dump($this->uploadCover());
             if (isset($_POST["title"]) && !empty($_FILES["cover"]["name"])) {
 
                 $title = $_POST["title"];
                 $description = $_POST["description"];
 
-                $basename=basename($_FILES["cover"]["name"]);
+                $basename = basename($_FILES["cover"]["name"]);
                 //ump($basename);die();
-                $path = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public". DIRECTORY_SEPARATOR ."images\book" . DIRECTORY_SEPARATOR;
+                $path = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "images\book" . DIRECTORY_SEPARATOR;
                 $cover = $path . $basename;
                 //var_dump($cover);die();
                 $sql = "INSERT INTO post SET title=:title,createdAt=:createdAt,publishedAt=:publishedAt,description=:description,cover=:cover,id_category=:id_category,id_user=:id_user";
@@ -88,36 +88,43 @@ class PostManager
                     "id_user" => $id_user
                 ));
             }
-        }else print_r($this->uploadCover()) ;
+        } else print_r($this->uploadCover());
     }
 
 
 
-    public function update($id, $title, $createdAt, $publishedAt, $description, $cover, $id_category, $id_user)
+    public function update($id, $title, $createdAt, $publishedAt, $description,$basename, $id_category, $id_user)
     {
-        $sql = "UPDATE post
+        if ($this->uploadCover() === true) {
+            $basename = basename($_FILES["cover"]["name"]);
+                //dump($basename);die();
+                $path = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "images\book" . DIRECTORY_SEPARATOR;
+                $cover = $path . $basename;
+            $sql = "UPDATE post
         SET title=:title,createdAt=:createdAt,publishedAt=:publishedAt,
         description=:description,cover=:cover,id_category=:id_category,id_user=:id_user 
         WHERE id=:id";
 
-        $result = $this->pdo->prepare($sql);
-        $result->execute(array(
-            "id" => $id,
-            "title" => $title,
-            "createdAt" => $createdAt,
-            "publishedAt" => $publishedAt,
-            "description" => $description,
-            "cover" => $cover,
-            "id_category" => $id_category,
-            "id_user" => $id_user
-        ));
+            $result = $this->pdo->prepare($sql);
+            $result->execute(array(
+                "id" => $id,
+                "title" => $title,
+                "createdAt" => $createdAt,
+                "publishedAt" => $publishedAt,
+                "description" => $description,
+                "cover" => $cover,
+                "id_category" => $id_category,
+                "id_user" => $id_user
+
+            ));
+        }print_r($this->uploadCover());
     }
-    public function delete($title)
+    public function delete($id)
     {
-        $sql = "DELETE FROM post WHERE title=:title";
+        $sql = "DELETE FROM post WHERE id=:id";
 
         $result = $this->pdo->prepare($sql);
-        $result->execute(array("title" => $title));
+        $result->execute(array("id" => $id));
     }
     public function find($id)
     {

@@ -15,29 +15,36 @@ class PostController
   public function addPost()
   {
     if ($_SESSION != []) {
+      if (!file_exists(dirname(dirname(__dir__)) . "/public/images/book/" . $_FILES["cover"]["name"])) {
+        if (isset($_POST["title"]) && !empty($_POST["title"])) {
 
-      if (isset($_POST["title"]) && !empty($_POST["title"])) {
-        $title = $this->postmanager->find($_POST["title"]);
-        if ($title == false) {
-          $this->postmanager->add($_POST["title"], $_POST["createdAt"], $_POST["publishedAt"], $_POST["description"], $_FILES["cover"]["name"], $_POST["id_category"], (int)$_SESSION["id"]);
-          echo 'post  added';
-        } else echo  "<br>this post exist try another";
-      } else echo 'verify fields';
+          $title = $this->postmanager->find($_POST["title"]);
+          if ($title == false) {
+            $this->postmanager->add($_POST["title"], $_POST["createdAt"], $_POST["publishedAt"], $_POST["description"], $_FILES["cover"]["name"], $_POST["id_category"], (int)$_SESSION["id"]);
+            echo 'post  added';
+          } else echo  "<br>this post exist try another";
+        } else echo 'verify fields';
+      } else echo 'this file exist';
     } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
 
   public function updatePost()
   {
     if ($_SESSION != []) {
-      if (isset($_POST["title"]) && !empty($_POST["id"])) {
-        $id = $this->postmanager->find($_POST["id"]);
-        //dump($id);die();
-        if ($id == true) {
-          $this->postmanager->update($_POST["id"], $_POST["title"], $_POST["createdAt"], $_POST["publishedAt"], $_POST["description"], $_FILES["cover"]["name"], $_POST["id_category"], $_SESSION["id"]);
-          echo 'Post  updated';
-        } else echo  "<br>this id don t exist try another";
-      } else echo 'verify fields';
-    } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
+      //dump(file_exists(dirname(dirname(__dir__)) . "/public/images/book/" . $_FILES["cover"]["name"]));
+      if (!file_exists(dirname(dirname(__dir__)) . "/public/images/book/" . $_FILES["cover"]["name"])) 
+      {
+        if (isset($_POST["title"]) && !empty($_POST["id"])) {
+          $id = $this->postmanager->find($_POST["id"]);
+          dump($_FILES, $_POST);
+          //die();
+          if ($id == true) {
+            $this->postmanager->update($_POST["id"], $_POST["title"], $_POST["createdAt"], $_POST["publishedAt"], $_POST["description"],  $_FILES["cover"]["name"], $_POST["id_category"], $_SESSION["id"]);
+            echo 'Post  updated';
+          } else echo  "<br>this id don t exist try another";
+        } else echo 'verify fields';
+      } else echo "file exist <a href='/post/updatepage'>back to update page and rename file</a>";
+    }else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
 
   public function deletePost()
@@ -45,10 +52,10 @@ class PostController
 
     if ($_SESSION != []) {
 
-      if (isset($_POST["post"])) {
-        $post = $this->postmanager->find($_POST["post"]);
+      if (isset($_POST["id_post"])) {
+        $post = $this->postmanager->find($_POST["id_post"]);
         if (is_array($post)) {
-          $this->postmanager->delete($_POST["post"]);
+          $this->postmanager->delete((int)$_POST["id_post"]);
           echo 'post  deleted';
         } else echo  "<br>this post don t exist try another";
       } else echo 'verify fields';
