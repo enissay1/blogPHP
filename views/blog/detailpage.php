@@ -6,6 +6,8 @@ use App\Services\Connection;
 $pdo = Connection::getInstance()->getPdo();
 $query = $pdo->prepare("SELECT * FROM post WHERE id=:id");
 $q = $pdo->prepare("SELECT name FROM category WHERE id=:id");
+$q2 = $pdo->prepare("SELECT username FROM user WHERE id=:id");
+
 $explode = explode("/",$_SERVER['REQUEST_URI']);
 $end=end($explode);
 $query->execute(array("id" => $end));
@@ -18,6 +20,9 @@ $results = $query->fetchAll(pdo::FETCH_ASSOC);
         <?php
         $q->execute(array("id" => (int)$post["id_category"]));
         $category = $q->fetch();
+        $q2->execute(array("id" => (int)$post["id_user"]));
+        $author = $q2->fetch();
+        //dump($author);
         ?>
         <div class="col-md-3">
             <div class="card">
@@ -27,7 +32,7 @@ $results = $query->fetchAll(pdo::FETCH_ASSOC);
                     <p><span>createdAt :</span><?= $post["createdAt"] ?></p>
                     <p><span>publishedAt : </span><?= $post["publishedAt"] ?></p>
                     <p>category :<?= $category['name']; ?></p>
-                    <p>Author :<?= $_SESSION['username'] ?></p><br>
+                    <p>Author :<?= $author["username"] ?></p><br>
                 </div>
             <?php endforeach ?>
             </div>

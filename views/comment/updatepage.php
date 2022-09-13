@@ -1,7 +1,6 @@
 <?php 
 $explode = explode("/", $_SERVER['REQUEST_URI']);
 $end = end($explode);
-
 ?>
 <legend>Formulaire update comment</legend>
 
