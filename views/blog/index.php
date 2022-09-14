@@ -8,8 +8,8 @@ $count=$pdo->query($queryCount);
 $nbTotal=(int)$count->fetch()['countPost'];//nombre de post total
 $nbPages=ceil($nbTotal/3);//number de page total
 
-if(!empty($_GET['p'])){
-    $getPage=$_GET['p'];
+if(!empty($_GET['p'])&& is_numeric($_GET['p'])){
+    $getPage=(int)$_GET['p'];
        }else $getPage=1;
 $offset=($getPage-1)*3;
 
@@ -41,6 +41,7 @@ if ($getPage>1){
         $p=array('p'=>($getPage-1));
         $merge=array_merge($_GET,$p);
         $url=http_build_query($merge);
+        if ($url==="p=1"){$url="";}else $url;
         echo" <a href=?". $url ." name='precedente' class='btn btn-primary'>page precedente</a> ";
     }
    if ($getPage<ceil($nbPages)){
