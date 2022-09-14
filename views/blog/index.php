@@ -2,7 +2,19 @@
 use App\Entity\Post;
  use App\Services\Connection;
 $pdo=Connection::getInstance()->getPdo();
-$query=$pdo->query("SELECT * FROM post ORDER BY publishedAt DESC LIMIT 12");
+//query count
+$queryCount="SELECT COUNT(id) as countPost FROM post";
+$count=$pdo->query($queryCount);
+$nbTotal=(int)$count->fetch()['countPost'];//nombre de post total
+$nbPages=ceil($nbTotal/3);//number de page total
+
+if(!empty($_GET['p'])){
+    $getPage=$_GET['p'];
+       }else $getPage=1;
+$offset=($getPage-1)*3;
+
+// query to show
+$query=$pdo->query("SELECT * FROM post ORDER BY publishedAt DESC LIMIT 3 OFFSET $offset");
 $results=$query->fetchAll(PDO::FETCH_CLASS,Post::class);
 //dump($results);
 ?>
@@ -21,4 +33,21 @@ $results=$query->fetchAll(PDO::FETCH_CLASS,Post::class);
         </div>
     </div>
     <?php endforeach ?>
+</div>
+
+<div class="d-flex justify-content-between my-4">
+<?php
+if ($getPage>1){
+        $p=array('p'=>($getPage-1));
+        $merge=array_merge($_GET,$p);
+        $url=http_build_query($merge);
+        echo" <a href=?". $url ." name='precedente' class='btn btn-primary'>page precedente</a> ";
+    }
+   if ($getPage<ceil($nbPages)){
+        $p=array('p'=>($getPage+1));
+        $merge=array_merge($_GET,$p);
+        $url=http_build_query($merge);
+        echo" <a href=?". $url ." name='suivante' class='btn btn-primary ms-auto'>page suivante</a> ";
+    }
+    ?>
 </div>
