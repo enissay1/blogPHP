@@ -3,12 +3,15 @@ use App\Services\Connection;
 $pdo=Connection::getInstance()->getPdo();
 $results=$pdo->query("SELECT * FROM category",PDO::FETCH_ASSOC);
 //dump($_SESSION,$_POST);
+//rec id post 
+$explode = explode("/", $_SERVER['REQUEST_URI']);
+$end = end($explode);
 ?>
 <legend>Formulaire Update Post</legend>
 <form method="post" action="/post/update" enctype="multipart/form-data">
 
 <label for="id">id:</label><br>
-  <input type="text" id="id" name="id"><br>
+  <input type="text" id="id" name="id" value=<?=$end?>><br>
 
   <label for="title">title:</label><br>
   <input type="text" id="title" name="title"><br>

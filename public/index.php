@@ -22,8 +22,8 @@ $router->getMap('/user/logout', 'AuthController@logout', 'logoutUser');
 // -----------------------------
 $router->getMap('/user/showpage', 'user/showpage', 'usershow');
 $router->getMap('/user/addpage', 'user/addpage', 'useradd');
-$router->getMap('/user/updatepage', 'user/updatepage', 'userupdate');
-$router->getMap('/user/delete-page', 'user/deletepage', 'userdelete');
+$router->getMap('/user/updatepage/[i:id]', 'user/updatepage', 'userupdate');
+$router->getMap('/user/delete-page/[i:id]', 'user/deletepage', 'userdelete');
 
 $router->getMap('/user/add', 'UserController@addUser', 'addUser');
 $router->getMap('/user/update', 'UserController@updateUser', 'updateUser');
@@ -31,8 +31,8 @@ $router->getMap('/user/delete', 'UserController@deleteUser', 'deleteUser');
 // -----------------
 $router->getMap('/category/showpage', 'category/showpage', 'categoryshow');
 $router->getMap('/category/addpage', 'category/addpage', 'categoryadd');
-$router->getMap('/category/updatepage', 'category/updatepage', 'categoryupdate');
-$router->getMap('/category/delete-page', 'category/deletepage', 'categorydelete');
+$router->getMap('/category/updatepage/[i:id]', 'category/updatepage', 'categoryupdate');
+$router->getMap('/category/delete-page/[i:id]', 'category/deletepage', 'categorydelete');
 
 $router->getMap('/category/add', 'CategoryController@addcategory', 'addcategory');
 $router->getMap('/category/update', 'CategoryController@updatecategory', 'updatecategory');
@@ -40,8 +40,8 @@ $router->getMap('/category/delete', 'CategoryController@deletecategory', 'delete
 // ------------------
 $router->getMap('/post/showpage', 'post/showpage', 'postshow');
 $router->getMap('/post/addpage', 'post/addpage', 'postadd');
-$router->getMap('/post/updatepage', 'post/updatepage', 'postupdate');
-$router->getMap('/post/delete-page', 'post/deletepage', 'postdelete');
+$router->getMap('/post/updatepage/[i:id]', 'post/updatepage', 'postupdate');
+$router->getMap('/post/delete-page/[i:id]', 'post/deletepage', 'postdelete');
 
 $router->getMap('/post/add', 'PostController@addPost', 'addpost');
 $router->getMap('/post/update', 'PostController@updatePost', 'updatepost');

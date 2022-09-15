@@ -42,9 +42,8 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/post/addpage">Add Post</a>
-                <a class="dropdown-item" href="/post/updatepage">Update Post</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/post/delete-page">Delete Post</a>
+                <a class="dropdown-item" href="/post/showpage">Show all Posts</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -53,9 +52,8 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/category/addpage">Add Category</a>
-                <a class="dropdown-item" href="/category/updatepage">Update Category</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/category/delete-page">Delete Category</a>
+                <a class="dropdown-item" href="/category/showpage">Show all Categories</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -64,10 +62,12 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/user/addpage">Add User</a>
-                <a class="dropdown-item" href="/user/updatepage">Update User</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/user/delete-page">Delete User</a>
+                <a class="dropdown-item" href="/user/showpage">Show all users</a>
               </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/contact">Contact</a>
             </li>
             <li class="nav-item">
               <?php if (!(empty($_SESSION['username']))) {
@@ -77,7 +77,7 @@
                 $log = "/user/loginpage";
                 $status = "login";
               } ?>
-              <a class="nav-link" href=<?= $log ?>><?= $status ?></a>
+              <a class="nav-link  active" href=<?= $log ?>><?= $status ?></a>
             </li>
 
           </ul>
