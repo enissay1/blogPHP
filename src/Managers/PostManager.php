@@ -62,6 +62,7 @@ class PostManager
             return  true;
         } else return $errors;
     }
+    
     public function add($title, $createdAt, $publishedAt, $description, $basename, $id_category, $id_user)
     {
         if ($this->uploadCover() == true) {
