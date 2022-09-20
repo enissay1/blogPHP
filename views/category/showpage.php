@@ -1,6 +1,5 @@
-<?php
 
-use App\Entity\Category;
+<?php
 use App\Managers\CategoryManager;
 use App\Services\Connection;
 
@@ -10,6 +9,8 @@ $results = $catMan->findAllClass();
 //$cat = new Category;
 ?>
 <legend class="text-center">Show all categories</legend>
+
+<br><br><br>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>

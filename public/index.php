@@ -10,8 +10,8 @@ define('DEBUG', microtime(true));
 $router = new Router();
 //$router->getMap('/blog/[*:post]-[i:id]', 'blog/showPost', 'post');
 // /---------------------
-$router->getMap('/', 'home', 'home');
-$router->getMap('/contact', 'contact', 'contact');
+$router->getMap('/', '/home', 'home');
+$router->getMap('/contact', '/contact', 'contact');
 // ------------------------
 $router->getMap('/blog', 'blog/index', 'blog');
 $router->getMap('/blog/[i:id]','blog/detailpage', 'detailblog');
@@ -34,6 +34,9 @@ $router->getMap('/category/addpage', 'category/addpage', 'categoryadd');
 $router->getMap('/category/updatepage/[i:id]', 'category/updatepage', 'categoryupdate');
 $router->getMap('/category/delete-page/[i:id]', 'category/deletepage', 'categorydelete');
 
+$router->getMap('/category/searchpage', 'Category/searchpage', 'categorysearch');
+$router->getMap('/category/search', 'CategoryController#searchCategory', 'searchcategory');
+
 $router->getMap('/category/add', 'CategoryController@addcategory', 'addcategory');
 $router->getMap('/category/update', 'CategoryController@updatecategory', 'updatecategory');
 $router->getMap('/category/delete', 'CategoryController@deletecategory', 'deletecategory');
@@ -42,6 +45,9 @@ $router->getMap('/post/showpage', 'post/showpage', 'postshow');
 $router->getMap('/post/addpage', 'post/addpage', 'postadd');
 $router->getMap('/post/updatepage/[i:id]', 'post/updatepage', 'postupdate');
 $router->getMap('/post/delete-page/[i:id]', 'post/deletepage', 'postdelete');
+
+$router->getMap('/post/searchpage', 'Post/searchpage', 'postsearch');
+$router->getMap('/post/search', 'PostController#searchPost', 'searchpost');
 
 $router->getMap('/post/add', 'PostController@addPost', 'addpost');
 $router->getMap('/post/update', 'PostController@updatePost', 'updatepost');
@@ -56,11 +62,26 @@ $router->getMap('/comment/add', 'CommentController@addComment', 'addcomment');
 $router->getMap('/comment/update', 'CommentController@updatecomment', 'updatecomment');
 $router->getMap('/comment/delete', 'CommentController@deletecomment', 'deletecomment');
 // --------views-
-require '../views/parts/header.php';;
-$match = $router->run(dirname(__DIR__) . '\views');
+if ($router->match()=="error"){
+    require dirname(__DIR__) . '\views' . DIRECTORY_SEPARATOR . "errors/404.php";
+}
+if($router->match()=="controller" || $router->match()=="view"){
+          require '../views/parts/header.php';
+$router->run(dirname(__DIR__) . '\views');
 require '../views/parts/footer.php';
+}
+if ($router->match()=="file"){
+    $match = $router->runFile(dirname(__DIR__) . '\views');
+}
+ 
+
+ 
+
+
 // ------------ see later 
 
+
+//require $viewpath . DIRECTORY_SEPARATOR . $target . ".php";
 
 
 

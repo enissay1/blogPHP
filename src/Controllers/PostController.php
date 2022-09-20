@@ -32,8 +32,7 @@ class PostController
   {
     if ($_SESSION != []) {
       //dump(file_exists(dirname(dirname(__dir__)) . "/public/images/book/" . $_FILES["cover"]["name"]));
-      if (!file_exists(dirname(dirname(__dir__)) . "/public/images/book/" . $_FILES["cover"]["name"])) 
-      {
+      if (!file_exists(dirname(dirname(__dir__)) . "/public/images/book/" . $_FILES["cover"]["name"])) {
         if (isset($_POST["title"]) && !empty($_POST["id"])) {
           $id = $this->postmanager->find($_POST["id"]);
           dump($_FILES, $_POST);
@@ -44,7 +43,7 @@ class PostController
           } else echo  "<br>this id don t exist try another";
         } else echo 'verify fields';
       } else echo "file exist <a href='/post/updatepage'>back to update page and rename file</a>";
-    }else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
+    } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
   }
 
   public function deletePost()
@@ -60,6 +59,51 @@ class PostController
         } else echo  "<br>this post don t exist try another";
       } else echo 'verify fields';
     } else echo "you must connect before<a href='/user/loginpage'>click to login</a>";
+  }
+  public function searchPost()
+  {
+
+
+    $results = $this->postmanager->findAll();
+    //dump($results);die();
+    if (isset($_REQUEST["q"])) {
+      $q = $_REQUEST["q"];
+      //dump($q);   
+
+      // lookup all hints from array if $q is different from ""
+      if ($q !== "") {
+        $q = strtolower($q);
+        $len = strlen($q);
+        $hint = "";
+        foreach ($results as $name) {
+          if (stristr($q, substr($name['title'], 0, $len))) {
+            if ($hint === "") {
+              $hint = "
+              <tr>
+              <td scope='row'>{$name['title']}</td>
+              <td scope='row'>{$name['description']}</td>
+              </tr>";
+            } else {
+              $hint .=  "
+              <tr>
+              <td scope='row'>{$name['title']}</td>
+              <td scope='row'>{$name['description']}</td>
+              </tr>";
+            }
+          }
+        }
+        // Output "no suggestion" if no hint was found or output correct values
+        //echo $hint === "" ? "no suggestion" : $hint;
+        echo "
+        <thead>
+          <tr>
+              <th scope='col'>Title</th>
+              <th scope='col'>Description</th>
+          </tr>
+      </thead>
+          <tbody>{$hint}</tbody>";
+      }
+    }
   }
 }
 

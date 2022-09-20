@@ -10,7 +10,6 @@ class Connection
    * @static
    */
   private static $_instance = null;
-
   private $servername = "localhost";
   private $username = "root";
   private $password = "";

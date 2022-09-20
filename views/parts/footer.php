@@ -9,7 +9,6 @@
     </div>
 
 </footer>
-<script src="bootstrap/dist/js/bootstrap.js"></script>
-<script src="carousel-swipe.js"></script>
+
 </body>
 </html>
