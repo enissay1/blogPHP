@@ -55,7 +55,7 @@ class PostManager
             $uploadOk = 0;
         }
 
-        ////check errors
+        ////check errors or  $uploadOk = 0 
         if (empty($errors) == true) {
             move_uploaded_file($file_tmp, "../public/images/book/" . $file_name);
 

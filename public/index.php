@@ -12,6 +12,8 @@ $router = new Router();
 // /---------------------
 $router->getMap('/', '/home', 'home');
 $router->getMap('/contact', '/contact', 'contact');
+$router->getMap('/contact/send', 'ContactController@sendMail', 'sendmail');
+
 // ------------------------
 $router->getMap('/blog', 'blog/index', 'blog');
 $router->getMap('/blog/[i:id]','blog/detailpage', 'detailblog');
